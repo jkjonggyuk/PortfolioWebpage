@@ -45,8 +45,13 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-1 rounded" href="">jk.jonggyuk@gmail.com</a>
+          <li class="nav-item mx-0 mx-lg-1">            
+            <a class="nav-link py-3 px-0 px-lg-1 rounded js-tooltip js-copy" href="" data-toggle="tooltip" data-placement="bottom" data-copy="jk.jonggyuk@gmail.com" title="Copy to clipboard">
+              jk.jonggyuk@gmail.com
+<!--          <button type="button" class="btn btn-default btn-copy js-tooltip js-copy mx-0 my-0 px-0 py-0" data-toggle="tooltip" data-placement="bottom" data-copy="jk.jonggyuk@gmail.com" title="Copy to clipboard">
+                jk.jonggyuk@gmail.com
+              </button>
+-->         </a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
             <a class="nav-link py-3 px-0 px-lg-1 rounded" href="https://github.com/jkjonggyuk">
@@ -85,7 +90,15 @@
       <!-- Masthead Subheading -->
       <p class="masthead-subheading font-weight-light mb-5">Current CS Student - Growing Programmer</p>
       <p class="masthead-subheading font-weight-light mb-0">Current SKILLS: </p>
-      <p class="masthead-subheading font-weight-light mb-0">Developing SKILLS: </p>
+      <div class="px-3 py-1 rounded mb-3 w-25" style="background-color: #fff; color: #0aaeef;" >
+        <p class="font-weight-light">C#, Java, HTML, CSS, JavaScript</p>
+      </div>
+      <p class="masthead-subheading font-weight-light mb-0">Developing SKILLS:</p>
+      <div class="px-3 py-1 rounded mb-0 w-100" style="background-color: #0aaeef; border-color: #fff">
+        <div class="px-3 py-1 rounded mb-0 w-25" style="background-color: #fff; color: #0aaeef;" >
+          <p class="font-weight-light">C, C++, Python</p>
+        </div>
+      </div>
 
     </div>
   </header>
@@ -165,7 +178,7 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/safe.png" alt="">
+            <img class="img-fluid" src="img/portfolio/aboutjfc.png" alt="About JFC">
           </div>
         </div>
 
@@ -513,7 +526,7 @@
             <div class="row justify-content-center">
               <div class="col-lg-8">
                 <!-- Portfolio Modal - Title -->
-                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Locked Safe</h2>
+                <h2 class="portfolio-modal-title text-secondary mb-0">AboutJFC</h2>
                 <!-- Icon Divider -->
                 <div class="divider-custom">
                   <div class="divider-custom-line"></div>
@@ -523,9 +536,11 @@
                   <div class="divider-custom-line"></div>
                 </div>
                 <!-- Portfolio Modal - Image -->
-                <img class="img-fluid rounded mb-5" src="img/portfolio/safe.png" alt="">
+                <img class="img-fluid rounded mb-5" src="img/portfolio/aboutjfc.png" alt="About JFC">
                 <!-- Portfolio Modal - Text -->
-                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                <p class="mb-3 text-left">AboutJFC was developed under certain requirements from the client, in need of real world mobile application for the members to easily access and view its existing Facebook page. </p>
+                <p class="font-weight-bold text-left">Skills used: Java, Android Studio
+                </p>
                 <button class="btn btn-primary" href="#" data-dismiss="modal">
                   <i class="fas fa-times fa-fw"></i>
                   Close Window
@@ -590,6 +605,56 @@
 
   <!-- Custom scripts for this template -->
   <script src="js/freelancer.min.js"></script>
+
+  <script>
+    // COPY TO CLIPBOARD
+    // Attempts to use .execCommand('copy') on a created text field
+    // Falls back to a selectable alert if not supported
+    // Attempts to display status in Bootstrap tooltip
+    // ------------------------------------------------------------------------------
+
+    function copyToClipboard(text, el) {
+      var copyTest = document.queryCommandSupported('copy');
+      var elOriginalText = el.attr('data-original-title');
+
+      if (copyTest === true) {
+        var copyTextArea = document.createElement("textarea");
+        copyTextArea.value = text;
+        document.body.appendChild(copyTextArea);
+        copyTextArea.select();
+        try {
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'Copied!' : 'Whoops, not copied!';
+          el.attr('data-original-title', msg).tooltip('show');
+        } catch (err) {
+          console.log('Oops, unable to copy');
+        }
+        document.body.removeChild(copyTextArea);
+        el.attr('data-original-title', elOriginalText);
+      } else {
+        // Fallback if browser doesn't support .execCommand('copy')
+        window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
+      }
+    }
+
+    $(document).ready(function() {
+      // Initialize
+      // ---------------------------------------------------------------------
+
+      // Tooltips
+      // Requires Bootstrap 3 for functionality
+      $('.js-tooltip').tooltip();
+
+      // Copy to clipboard
+      // Grab any text in the attribute 'data-copy' and pass it to the 
+      // copy function
+      $('.js-copy').click(function() {
+        var text = $(this).attr('data-copy');
+        var el = $(this);
+        copyToClipboard(text, el);
+      });
+    });
+  </script>
 
 </body>
 
